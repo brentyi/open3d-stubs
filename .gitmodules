@@ -1,0 +1,8 @@
+[submodule "pybind11-stubgen"]
+	path = pybind11-stubgen
+	url = https://github.com/brentyi/pybind11-stubgen
+	branch = open3d
+[submodule "Open3D"]
+	path = Open3D
+	url = https://github.com/brentyi/Open3D
+	branch = master

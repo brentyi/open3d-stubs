@@ -1,0 +1,27 @@
+name: Deploy to install branch
+
+on: [push]
+
+jobs:
+  copy:
+    name: copy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: copy
+        env:
+          TARGET_BRANCH: "install"
+        run: |
+          files=$(find open3d-stubs -type f) # get the file list
+          git config --global user.name 'GitHub Action'
+          git config --global user.email 'action@github.com'
+          git fetch                         # fetch branches
+          git checkout $TARGET_BRANCH    # checkout to your branch
+          git rm -rf .
+          git checkout ${GITHUB_REF##*/} -- $files # copy files from the source branch
+          mv open3d-stubs _tmp/
+          mv _tmp/* .
+          rm -r _tmp/
+          git add .
+          git diff-index --quiet HEAD ||  git commit -am "deploy files"  # commit to the repository (ignore if no modification)
+          git push origin $TARGET_BRANCH # push to remote branch
