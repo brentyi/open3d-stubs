@@ -191,7 +191,7 @@ class OdometryResult:
          [0.0 1.0 0.0 0.0],
          [0.0 0.0 1.0 0.0],
          [0.0 0.0 0.0 1.0]]
-        Tensor[shape={4, 4}, stride={4, 1}, Float64, CPU:0, 0x55ab69439cb0], inlier_rmse: float = 0.0, fitness: float = 0.0) -> None
+        Tensor[shape={4, 4}, stride={4, 1}, Float64, CPU:0, 0x55ebf8ea8f80], inlier_rmse: float = 0.0, fitness: float = 0.0) -> None
         """
     def __repr__(self) -> str: ...
     @property
