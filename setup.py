@@ -21,5 +21,6 @@ setup(
     packages=["open3d-stubs"],
     # PEP 561 requires these
     install_requires=["open3d", "typing_extensions"],
+    include_package_data=True,
     package_data=find_stubs("open3d-stubs"),
 )
