@@ -1,3 +1,4 @@
 isort
 black
-mypy
+mypy==0.971
+autoflake

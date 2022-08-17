@@ -1,9 +1,12 @@
-from __future__ import annotations
+from typing import Any, Set, overload
 
-import typing
-
-import open3d.utility.random
-import typing_extensions
+import numpy as np
+import numpy.typing as npt
 from typing_extensions import Annotated
 
-__all__ = ["seed"]
+@overload
+def seed(seed) -> Any: ...
+@overload
+def seed(int) -> Any: ...
+
+__all__ = ["seed", "seed"]

@@ -1,32 +1,21 @@
-from __future__ import annotations
+from typing import Any, Optional, Set
 
-import typing
-
+import numpy as np
+import numpy.typing as npt
 import open3d.core
-import open3d.core.nns
-import typing_extensions
 from typing_extensions import Annotated
 
-__all__ = ["NearestNeighborSearch"]
-
 class NearestNeighborSearch:
-    """
-    NearestNeighborSearch class for nearest neighbor search. Construct a NearestNeighborSearch object with input dataset_points of shape {n_dataset, d}.
-    """
-
     def __init__(
-        self,
-        dataset_points: open3d.core.Tensor,
-        index_dtype: open3d.core.Dtype = open3d.core.Dtype.Int64,
+        self, dataset_points: open3d.core.Tensor, index_dtype: open3d.core.Dtype = ...
     ) -> None: ...
-    def fixed_radius_index(self, radius: typing.Optional[float] = None) -> bool: ...
-    def hybrid_index(self, radius: typing.Optional[float] = None) -> bool: ...
-    def knn_index(self) -> bool:
-        """
-        Set index for knn search.
-        """
-    def multi_radius_index(self) -> bool:
-        """
-        Set index for multi-radius search.
-        """
-    pass
+    def fixed_radius_index(self, radius: Optional[float] = ...) -> bool: ...
+    def fixed_radius_search(self, query_points, radius, sort=...) -> Any: ...
+    def hybrid_index(self, radius: Optional[float] = ...) -> bool: ...
+    def hybrid_search(self, query_points, radius, max_knn) -> Any: ...
+    def knn_index(self) -> bool: ...
+    def knn_search(self, query_points, knn) -> Any: ...
+    def multi_radius_index(self) -> bool: ...
+    def multi_radius_search(self, query_points, radii) -> Any: ...
+
+__all__ = ["NearestNeighborSearch"]

@@ -1,15 +1,43 @@
-from __future__ import annotations
+from typing import Any, Set, Tuple
 
-import typing
-
-import open3d.io.rpc
+import numpy as np
+import numpy.typing as npt
 import open3d.t.geometry
-import typing_extensions
 from typing_extensions import Annotated
+
+class BufferConnection(_ConnectionBase):
+    def __init__(self) -> None: ...
+    def get_buffer(self) -> bytes: ...
+
+class Connection(_ConnectionBase):
+    def __init__(
+        self, address: str = ..., connect_timeout: int = ..., timeout: int = ...
+    ) -> None: ...
+
+class _ConnectionBase:
+    def __init__(self, *args, **kwargs) -> None: ...
+
+class _DummyReceiver:
+    def __init__(self, address: str = ..., timeout: int = ...) -> None: ...
+    def start(self) -> None: ...
+    def stop(self) -> None: ...
+
+def data_buffer_to_meta_geometry(
+    data: str,
+) -> Tuple[str, float, open3d.t.geometry.Geometry]: ...
+def destroy_zmq_context() -> None: ...
+def set_active_camera(path, connection=...) -> Any: ...
+def set_legacy_camera(camera, path=..., time=..., layer=..., connection=...) -> Any: ...
+def set_mesh_data(*args, **kwargs) -> Any: ...
+def set_point_cloud(pcd, path=..., time=..., layer=..., connection=...) -> Any: ...
+def set_time(time, connection=...) -> Any: ...
+def set_triangle_mesh(mesh, path=..., time=..., layer=..., connection=...) -> Any: ...
 
 __all__ = [
     "BufferConnection",
     "Connection",
+    "_ConnectionBase",
+    "_DummyReceiver",
     "data_buffer_to_meta_geometry",
     "destroy_zmq_context",
     "set_active_camera",
@@ -19,70 +47,3 @@ __all__ = [
     "set_time",
     "set_triangle_mesh",
 ]
-
-class _ConnectionBase:
-    pass
-
-class Connection(_ConnectionBase):
-    """
-    The default connection class which uses a ZeroMQ socket.
-    """
-
-    def __init__(
-        self,
-        address: str = "tcp://127.0.0.1:51454",
-        connect_timeout: int = 5000,
-        timeout: int = 10000,
-    ) -> None:
-        """
-        Creates a connection object
-        """
-    pass
-
-class BufferConnection(_ConnectionBase):
-    """
-    A connection writing to a memory buffer.
-    """
-
-    def __init__(self) -> None: ...
-    def get_buffer(self) -> bytes:
-        """
-        Returns a copy of the buffer.
-        """
-    pass
-
-class _DummyReceiver:
-    """
-    Dummy receiver for the server side receiving requests from a client.
-    """
-
-    def __init__(
-        self, address: str = "tcp://127.0.0.1:51454", timeout: int = 10000
-    ) -> None:
-        """
-        Creates the receiver object which can be used for testing connections.
-        """
-    def start(self) -> None:
-        """
-        Starts the receiver mainloop in a new thread.
-        """
-    def stop(self) -> None:
-        """
-        Stops the receiver mainloop and joins the thread. This function blocks until the mainloop is done with processing messages that have already been received.
-        """
-    pass
-
-def data_buffer_to_meta_geometry(
-    data: str,
-) -> typing.Tuple[str, float, open3d.t.geometry.Geometry]:
-    """
-    This function returns the geometry, the path and the time stored in a
-    SetMeshData message. data must contain the Request header message followed
-    by the SetMeshData message. The function returns None for the geometry if not
-    successful.
-    """
-
-def destroy_zmq_context() -> None:
-    """
-    Destroys the ZMQ context.
-    """

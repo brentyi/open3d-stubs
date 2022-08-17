@@ -1,10 +1,9 @@
-"""Functionality for running the open3d viewer."""
-from __future__ import annotations
+from typing import Any, Set
 
-import typing
-
-import open3d.visualization.app
-import typing_extensions
+import numpy as np
+import numpy.typing as npt
 from typing_extensions import Annotated
+
+def run_viewer(args) -> Any: ...
 
 __all__ = ["run_viewer"]

@@ -29,9 +29,7 @@ git clone --recurse-submodules https://github.com/brentyi/open3d-stubs.git
 ```
 cd open3d-stubs
 pip install -r requirements.txt
-cd pybind11-stubgen
-pip install -e .
-cd ../Open3D
+cd ./Open3D
 # Follow directions for building Open3D from source: http://www.open3d.org/docs/release/compilation.html
 ...
 ```
@@ -45,3 +43,4 @@ python generate_stubs.py
 ### Misc
 
 Similar project: https://github.com/againxx/open3d-stubs
+
